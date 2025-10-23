@@ -2,10 +2,20 @@
   "name": "dank-map",
   "version": "0.1.0",
   "description": "A map function that can map over almost anything.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "node test.js"
+    "build": "tsc",
+    "test": "npm run build && node test.js",
+    "prepublishOnly": "npm run build && npm test",
+    "clean": "rm -rf dist"
   },
+  "files": [
+    "dist",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wankdanker/node-dank-map.git"
@@ -15,8 +25,16 @@
     "attribute",
     "key",
     "index",
-    "array"
+    "array",
+    "typescript"
   ],
   "author": "Dan VerWeire",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=14"
+  }
 }

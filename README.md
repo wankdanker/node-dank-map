@@ -1,9 +1,18 @@
 dank-map
 --------
 
-Execute a function `fn` for each `key` or `index` in `obj`. 
-Values returned from `fn` are appended to an array which is 
+Execute a function `fn` for each `key` or `index` in `obj`.
+Values returned from `fn` are appended to an array which is
 returned by the map function.
+
+Written in TypeScript with full type definitions included.
+
+installation
+------------
+
+```bash
+npm install dank-map
+```
 
 api
 ---
@@ -36,29 +45,32 @@ undefined or null return value would NOT be appended to the final array.
 example
 -------
 
+### JavaScript
 ```javascript
+const map = require('dank-map');
+
 a = [40,50,2,1];
 
 b = map(a, function (key, val, emit, end) {
      //key is the index in the array
 
      if (val > 10) {
-             return val; 
+             return val;
      }
 });
 
-// b = [40, 50, null, null];
+// b = [40, 50, undefined, undefined];
 
-//this time we will sqash falsy values
+//this time we will squash falsy values
 c = map(a, function (key, val, emit, end) {
      //key is the index in the array
 
      if (val > 10) {
-             return val; 
+             return val;
      }
 }, true); //turn on squash
 
-// c = [40, 50]; 
+// c = [40, 50];
 
 //map over an object;
 
@@ -71,6 +83,48 @@ e = map(d, function (key, val, emit, end) {
 });
 
 //e = [1, 'customer_id', 'Willy Wonka', 'name'];
+```
+
+### TypeScript
+```typescript
+import map from 'dank-map';
+
+const a = [40, 50, 2, 1];
+
+const b = map<number, number | undefined>(a, (key, val, emit, end) => {
+  // key is the index in the array
+  if (val > 10) {
+    return val;
+  }
+  return undefined;
+});
+
+// b = [40, 50, undefined, undefined];
+
+// this time we will squash falsy values
+const c = map<number, number>(a, (key, val, emit, end) => {
+  if (val > 10) {
+    return val;
+  }
+  return undefined as any;
+}, true); // turn on squash
+
+// c = [40, 50];
+
+// map over an object
+interface Person {
+  customer_id: number;
+  name: string;
+}
+
+const d: Person = { customer_id: 1, name: 'Willy Wonka' };
+
+const e = map<number | string, number | string>(d, (key, val, emit, end) => {
+  emit(val);
+  return key;
+});
+
+// e = [1, 'customer_id', 'Willy Wonka', 'name'];
 ```
 
 These examples aren't that great. I typically use this function
