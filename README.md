@@ -5,6 +5,28 @@ Execute a function `fn` for each `key` or `index` in `obj`.
 Values returned from `fn` are appended to an array which is 
 returned by the map function.
 
+This package is written in TypeScript and ships both ESM and CommonJS
+builds along with type declarations.
+
+```javascript
+import { map } from 'dank-map';
+// or
+const { map } = require('dank-map');
+```
+
+development
+-----------
+
+This project uses [pnpm](https://pnpm.io), [vite](https://vitejs.dev) and
+[vitest](https://vitest.dev).
+
+```sh
+pnpm install
+pnpm test        # run the vitest suite
+pnpm run build   # build the dist/ output with vite
+pnpm run typecheck
+```
+
 api
 ---
 
